@@ -7,7 +7,6 @@ public class SolverHandler : IRequestHandler<SolverHandler.Command, SolverHandle
 {
     public class Command : IRequest<Result>
     {
-        public string TestString { get; set; }
         public Board BoardToSolve { get; set; }
     }
 

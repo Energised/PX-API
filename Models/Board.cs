@@ -11,4 +11,7 @@ public class Board
 
     public BlockState[][] SolvedBoardState { get; set; }
     public BlockState[][] SolvedBoardStateAsColumns { get; set; }
+
+    public int[][] RowHintsWithoutZeroes => RowHints.Select(rh => rh.Where(h => h != 0).ToArray()).ToArray();
+    public int[][] ColumnHintsWithoutZeroes => ColumnHints.Select(ch => ch.Where(h => h != 0).ToArray()).ToArray();
 }

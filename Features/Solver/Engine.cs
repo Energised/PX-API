@@ -27,8 +27,10 @@ public class Engine
 
     public void Solve()
     {
-        // handle base case
+        // handle definite cases
         ApplyMaxSizeHintCase();
+        ApplyHintSumCase();
+        //FillRandomSquare();
 
     }
 
@@ -37,11 +39,12 @@ public class Engine
         int hintIndex = 0;
         foreach (var rowHint in BoardData.RowHints)
         {
+            var rowHintWithoutZeroes = rowHint.Where(h => h != 0).ToArray();
             // if the hint is the same as the length of the row
-            if (rowHint.Length == 1 && rowHint[0] == BoardData.Width)
+            if (rowHintWithoutZeroes.Length == 1 && rowHintWithoutZeroes[0] == BoardData.Width)
             {
                 // fill all spaces on the row
-                for(int r = 0; r < BoardData.Width - 1; r++)
+                for(int r = 0; r < BoardData.Width; r++)
                 {
                     BoardData.BoardState[hintIndex][r] = BlockState.Filled;
                 }
@@ -54,19 +57,32 @@ public class Engine
         
         foreach (var columnHint in BoardData.ColumnHints)
         {
-            if (columnHint.Length == 1 && columnHint[0] == BoardData.Height)
+            var columnHintWithoutZeroes = columnHint.Where(h => h != 0).ToArray();
+            if (columnHintWithoutZeroes.Length == 1 && columnHintWithoutZeroes[0] == BoardData.Height)
             {
                 // fill all spaces in the row
-                for (int c = 0; c < BoardData.Height - 1; c++)
+                for (int c = 0; c < BoardData.Height; c++)
                 {
                     BoardData.BoardState[c][hintIndex] = BlockState.Filled;
                 }
             }
+
+            hintIndex++;
         }
+    }
+
+    private void ApplyHintSumCase()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void FillRandomSquare()
+    {
+        BoardData.BoardState[0][0] = BlockState.Filled;
     }
 
     public bool IsSolved()
     {
-        throw new NotImplementedException();
+        return BoardData.BoardState == BoardData.SolvedBoardState;
     }
 }
